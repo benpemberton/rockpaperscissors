@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Function scope example</title>
+</head>
+<body>
+  <script>
+      let rock = 0;
+      let paper = 1;
+      let scissors = 2;
+    function computerPlay () {
+       let result = Math.floor(Math.random() * 3);
+        switch (result) {
+            case 0:
+                return 'Rock'
+                break;
+            case 1:
+                return 'Paper'
+                break;
+            case 2:
+                return 'Scissors'
+                break;
+        }
+    }
+
+    function game(playerSelection, computerSelection) {
+        let string = playerSelection.toLowerCase();
+        let capString = string.charAt(0).toUpperCase() + string.slice(1);
+
+        if (capString === computerSelection) {
+            alert(`Ahh dang! No winner this round. ${capString} nullifies ${computerSelection}`);
+        }
+
+
+        else if (capString === 'Rock') {
+            if (computerSelection === 'Scissors') {
+                alert('Victory! Rock beats Scissors.');
+            } else if (computerSelection === 'Paper') { 
+                alert('You lose! Paper beats Rock.');
+            }
+        }
+
+        else if (capString === 'Paper') {
+            if (computerSelection === 'Rock') {
+                alert('Victory! Paper beats Rock.');
+            } else if (computerSelection === 'Paper') { 
+                alert('You lose! Scissors beats Paper.');
+            }
+        }
+
+        else if (capString === 'Scissors') {
+            if (computerSelection === 'Paper') {
+                alert('Victory! Scissors beats Paper.');
+            } else if (computerSelection === 'Rock') { 
+                alert('You lose! Rock beats Scissors.');
+            }
+        }
+    }
+
+  </script>
+</body>
+</html>
