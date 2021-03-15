@@ -1,5 +1,27 @@
 window.onload = () => {
+    
+    const versusBox = document.getElementById('versusbox');  
+    const stickmanBox = document.getElementById('stickmanbox');
+    const stickImg = document.createElement('img');
+    stickImg.src = '/images/stickman-icon.png';
+    const scoreBox = document.getElementById('scorebox');
+    const laptopBox = document.getElementById('laptopbox');
+    const laptopImg = document.createElement('img');
+    laptopImg.src = '/images/laptop-icon.png';
+    const commentBox = document.getElementById('commentbox');
+    const weaponBox = document.getElementById('weaponbox');
+    const rockBox = document.getElementById('rockbox');
+    const rockImg = document.createElement('img');
+    rockImg.src = '/images/rock.png';
+    const paperBox = document.getElementById('paperbox');
+    const paperImg = document.createElement('img');
+    paperImg.src = '/images/paper.png';
+    const scissorBox = document.getElementById('scissorbox');
+    const scissorImg = document.createElement('img');
+    scissorImg.src = '/images/scissors.png';
+    const weaponPrompt = document.getElementById('weaponprompt');
     const letsPlay = document.querySelector('#btnyes');
+
     letsPlay.addEventListener('click', () => {
         startPlay();
     });
@@ -13,46 +35,32 @@ window.onload = () => {
             for (let i = 0; i < introDivs.length ; i++) {
                 introDivs[i].remove();
             }
-            document.getElementById('intro').setAttribute('id', 'versusbox');
-            const versusBox = document.getElementById('versusbox');  
-            const stickmanBox = document.createElement('div');
-            const laptopBox = document.createElement('div');
-            stickmanBox.setAttribute('id', 'stickmanbox');
-            laptopBox.setAttribute('id', 'laptopbox');
-            versusBox.appendChild(stickmanBox);
-            versusBox.appendChild(laptopBox);
-            let stickImg = document.createElement('img');
-            stickImg.src = '/images/stickman-icon.png';
+            const reveal = document.querySelectorAll('.before');
+            reveal.forEach(function(node) {
+                node.classList.toggle('before');
+            });
             stickmanBox.appendChild(stickImg);
-            let laptopImg = document.createElement('img');
-            laptopImg.src = '/images/laptop-icon.png';
             laptopBox.appendChild(laptopImg);
-            const scoreBox = document.createElement('div');
-            scoreBox.setAttribute('id', 'scorebox');
-            versusBox.insertBefore(scoreBox, laptopBox);
-            const points = document.createElement('div');
-            points.setAttribute('id', 'points');
-            scoreBox.appendChild(points);
-            const commentBox = document.createElement('div');
-            commentBox.setAttribute('id', 'commentary');
-            const buttonBox = document.querySelector('.buttonbox');
-            const siteWrap = document.querySelector('#site-wrap');
-            siteWrap.insertBefore(commentBox, buttonBox);
+            stickImg.classList.toggle('slidefromleft');
+            laptopImg.classList.toggle('slidefromright');
+            rockBox.appendChild(rockImg);
+            paperBox.appendChild(paperImg);
+            scissorBox.appendChild(scissorImg);
+            const weapons = document.querySelectorAll('.weapons');
+            weapons.forEach(function(node) {
+                node.classList.toggle('slidefrombelow');
+            });
             const pointsText = document.createElement('p');
+            pointsText.setAttribute('class', 'grow');
             pointsText.textContent = 'sample text';
-            points.appendChild(pointsText);
-            const rockBox = document.createElement('div');
-            rockBox.setAttribute('id', 'rockbox');
-            const paperBox = document.createElement('div');
-            paperBox.setAttribute('id', 'paperbox');
-            const scissorBox = document.createElement('div');
-            scissorBox.setAttribute('id', 'scissorbox');
-            buttonBox.appendChild(rockBox);
-            buttonBox.appendChild(paperBox);
-            buttonBox.appendChild(scissorBox);
-        });
+            scoreBox.appendChild(pointsText);
 
-        
+            document.querySelectorAll('.weapons').forEach(function(node) {
+                node.addEventListener('click', function(e) {
+                    console.dir(e);
+                })
+            })
+        });
     }    
 }
 

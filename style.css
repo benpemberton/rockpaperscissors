@@ -51,6 +51,7 @@ table {
 
 body {
     background-color: #E7BFFE;
+    overflow: hidden;
 }
 
 #site-wrap {
@@ -60,6 +61,11 @@ body {
     rgb(120,111,251, 0.6)40%, 
     rgb(116,110,251, 0.2)50%, rgb(116,110,251, 1)60%);
 }
+
+p {
+    font-family: DotGothic16, sans-serif; 
+}
+
 #intro {  
     padding-top: 40vh;
     display: flex; 
@@ -217,7 +223,6 @@ body {
 #stickmanbox img {
     height: 60%;
     padding-right: 10vw;
-    color: green;
 }
 
 #scorebox {
@@ -237,4 +242,93 @@ body {
 #laptopbox img {
     height: 45%;
     padding-left: 10vw;
+}
+
+.before {
+    display: none !important;
+}
+
+.slidefromleft {
+    position: relative;
+    transform: translate(-50vw, 0);
+    animation: slidefromleft 1s forwards;
+}
+
+@keyframes slidefromleft {
+    100% {transform: translate(0, 0);}
+}
+
+.slidefromright {
+    position: relative;
+    transform: translate(50vw, 0);
+    animation: slidefromright 1s forwards;
+}
+
+@keyframes slidefromright {
+    100% {transform: translate(0, 0);}
+}
+
+#commentbox {
+    height: 150px;
+}
+
+#weaponicons {
+    display: flex;
+    justify-content: center;
+    column-gap: 5%;
+}
+
+.weapons {
+    border: dotted 4px black;
+    padding: 2%;
+    height: 15vh;
+    width:auto;
+}
+
+.weapons img {
+    max-height: 100%;
+}
+
+.slidefrombelow {
+    position: relative;
+    transform: translate(0, 40vh);
+    animation:slidefrombelow 1s forwards;
+    animation-delay: 1s;
+}
+
+@keyframes slidefrombelow {
+    100% {transform: translate(0, 0);}
+}
+
+.weapons:hover {
+    background-color: #C5FB6F;
+    border: solid 4px white;
+}
+
+.weapons img:hover {
+    transform: scale(1.03);
+}
+
+.buttons:hover {
+    transform: translate(-2px,-2px);
+    box-shadow: 2px 2px 0px 1px black;
+}
+
+.weapons:active {
+    background-color: #97d337;
+    transform: translate(1px,1px) scale(0.99);
+    box-shadow: 0px 0px 0px 2px black;
+}
+
+#scorebox p{
+    font-size: 40px;
+    font-weight: 500;
+    transform: scale(0);
+    animation: grow 0.5s forwards;
+    animation-delay: 1.5s;
+}
+
+@keyframes grow {
+    0% {transform: scale(0);}
+    100% {transform: scale(1);}
 }
