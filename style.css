@@ -1,0 +1,240 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* MINE STARTS FROM HERE*/
+
+body {
+    background-color: #E7BFFE;
+}
+
+#site-wrap {
+    width: 100vw;
+    height: 100vh;
+    background-image: linear-gradient(180deg, rgb(120,111,251, 1)20%,
+    rgb(120,111,251, 0.6)40%, 
+    rgb(116,110,251, 0.2)50%, rgb(116,110,251, 1)60%);
+}
+#intro {  
+    padding-top: 40vh;
+    display: flex; 
+    width: 70%;
+    margin: auto;
+    justify-content: center;
+    text-align: left;
+    flex-wrap: wrap;
+}
+
+#intro p {
+    font-family: DotGothic16, sans-serif;
+    font-size: 30px;
+    line-height: 35px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#introtext1 {
+    width: 100%;
+    border-right: .10em solid transparent;
+    opacity: 0;
+    -webkit-animation: 
+    type 4s steps(25, end);
+    blink-caret 0.45s steps-end infinite;
+    animation: 
+    type 4s steps(25, end),
+    blink-caret 0.45s step-end infinite;
+}
+
+#introtext2 {
+    animation-delay: 3s;
+    width: 100%;
+    border-right: .10em solid transparent;
+    opacity: 0;
+    -webkit-animation: 
+    type2 3.5s steps(25), end),
+    blink-caret .45s step-end infinite;
+    animation: 
+    type2 3.5s steps(25, end),
+    blink-caret .45s step-end infinite;
+    animation-delay: 4s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards
+}
+
+
+
+@keyframes type {
+    0% {width: 0;
+        opacity: 1;}
+    50% {width: 100%;
+        opacity: 1;}
+    90% {width: 100%;
+        opacity: 1;}
+    100% {width:100%;
+        opacity: 0;}
+}
+      
+@-webkit-keyframes type {
+    0% {width: 0;
+        opacity: 1;}
+    50% {width: 100%;
+        opacity: 1;}
+    90% {width: 100%;
+        opacity: 1;}
+    100% {width:100%;
+        opacity: 0;}
+}
+
+@keyframes type2 {
+    0% {width: 0;
+        opacity: 1;}
+    50% {width: 100%;
+        opacity: 1;}
+    100% {width:100%;
+        opacity: 1;}
+}
+  
+@-webkit-keyframes type2 {
+    0% {width: 0;
+        opacity: 1;}
+    50% {width: 100%;
+        opacity: 1;}
+    100% {width:100%;
+        opacity: 1;}
+}
+
+@keyframes blink-caret {
+    50% {border-color: white;}
+}
+
+.buttonbox {
+    margin-top: 200px;
+    display: flex;
+    justify-content: center;
+    column-gap: 100px;
+    opacity: 0;
+    animation: fade-in 0.8s forwards;
+    animation-delay: 6.3s;
+}
+
+.buttons {
+    font-family: DotGothic16, sans-serif;
+    font-size: 20px;
+    background-color: #C5FB6F;
+    border: 2px solid black;
+    padding: 20px 40px;
+}
+
+.buttons:hover {
+    transform: translate(-2px,-2px);
+    box-shadow: 2px 2px 0px 1px black;
+}
+
+.buttons:active {
+    background-color: #97d337;
+    transform: translate(1px,1px) scale(0.99);
+    box-shadow: 1px 1px 0px 1px black;
+}
+
+.buttons:focus {
+    outline: none;
+}
+
+@keyframes fade-in {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+.disappear{
+    animation: fade-out 0.7s forwards;
+    
+}
+
+@keyframes fade-out {
+    100% {
+        opacity: 0;
+    }
+}
+
+#versusbox { 
+        height: 50vh;
+        display:flex;
+        width: 100%;
+}
+
+#stickmanbox {
+    display: flex;
+    width: 30%;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#stickmanbox img {
+    height: 60%;
+    padding-right: 10vw;
+    color: green;
+}
+
+#scorebox {
+    display: flex;
+    width:40%;
+    align-items: center;
+    justify-content: center;
+}
+
+#laptopbox {
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#laptopbox img {
+    height: 45%;
+    padding-left: 10vw;
+}
