@@ -1,5 +1,11 @@
 window.onload = () => {
-    
+    let roundsPlayed = 0
+    let rock = 0;
+    let paper = 1;
+    let scissors = 2;
+    let playerPoints = 0;
+    let computerPoints = 0;
+    const pointsText = document.createElement('p');
     const versusBox = document.getElementById('versusbox');  
     const stickmanBox = document.getElementById('stickmanbox');
     const stickImg = document.createElement('img');
@@ -12,12 +18,15 @@ window.onload = () => {
     const weaponBox = document.getElementById('weaponbox');
     const rockBox = document.getElementById('rockbox');
     const rockImg = document.createElement('img');
+    rockImg.setAttribute('id', 'rockimg');
     rockImg.src = '/images/rock.png';
     const paperBox = document.getElementById('paperbox');
     const paperImg = document.createElement('img');
+    paperImg.setAttribute('id', 'paperimg');
     paperImg.src = '/images/paper.png';
     const scissorBox = document.getElementById('scissorbox');
     const scissorImg = document.createElement('img');
+    scissorImg.setAttribute('id', 'scissorimg');
     scissorImg.src = '/images/scissors.png';
     const weaponPrompt = document.getElementById('weaponprompt');
     const letsPlay = document.querySelector('#btnyes');
@@ -50,83 +59,93 @@ window.onload = () => {
             weapons.forEach(function(node) {
                 node.classList.toggle('slidefrombelow');
             });
-            const pointsText = document.createElement('p');
             pointsText.setAttribute('class', 'grow');
-            pointsText.textContent = 'sample text';
-            scoreBox.appendChild(pointsText);
-
-            document.querySelectorAll('.weapons').forEach(function(node) {
-                node.addEventListener('click', function(e) {
-                    console.dir(e);
-                })
-            })
+            
         });
-    }    
-}
+    }   
 
+    const commentText = document.createElement('p');
+    commentBox.appendChild(commentText);
+    let score = '0 - 0';
+    pointsText.innerHTML = score;
+    scoreBox.appendChild(pointsText);
+    
+    document.querySelectorAll('.weapons').forEach(function(node) {
+        node.addEventListener('click', function(e) {
+            
+            if (e.target.id === 'rockimg' || e.target.id === 'rockbox') {
+                playerThisRound = 'Rock';
+            } else if (e.target.id === 'paperimg' || e.target.id === 'paperbox') {
+                playerThisRound = 'Paper';
+            } else if (e.target.id === 'scissorimg' || e.target.id === 'scissorbox') {
+                playerThisRound =  'Scissors';
+            }
+            playRound(playerThisRound, computerPlay());
+            pointsText.innerHTML = `${playerPoints} - ${computerPoints}`;
+            roundsPlayed += 1;
+            if (roundsPlayed === 5) {
+                alert('that\'s enough');
+            }
+        });
+    });
 
-
-
-let playerPoints = 0;
-      let computerPoints = 0;
-      let rock = 0;
-      let paper = 1;
-      let scissors = 2;
     function computerPlay () {
-       let result = Math.floor(Math.random() * 3);
-        switch (result) {
-            case 0:
-                return 'Rock'
-                break;
-            case 1:
-                return 'Paper'
-                break;
-            case 2:
-                return 'Scissors'
-                break;
-        }
-    }
+        let result = Math.floor(Math.random() * 3);
+         switch (result) {
+             case 0:
+                 return 'Rock'
+                 break;
+             case 1:
+                 return 'Paper'
+                 break;
+             case 2:
+                 return 'Scissors'
+                 break;
+         }
+     }
+ 
+     function playRound(playerSelection, computerSelection) {
+         let winningMessage = `Victory! ${playerSelection} beats ${computerSelection}.`
+         let losingMessage = `You lose! ${computerSelection} beats ${playerSelection}.`
+ 
+         if (playerSelection === computerSelection) {
+             commentText.textContent = 
+             `Ahh dang! No winner this round. ${playerSelection} nullifies ${computerSelection}`;
+         }
+ 
+         else if (playerSelection === 'Rock') {
+             if (computerSelection === 'Scissors') {
+                 playerPoints += 1;
+                 commentText.textContent = winningMessage;
+             } else if (computerSelection === 'Paper') { 
+                 computerPoints += 1;
+                 commentText.textContent = losingMessage;
+             }
+         }
+ 
+         else if (playerSelection === 'Paper') {
+             if (computerSelection === 'Rock') {
+                 playerPoints += 1;
+                 commentText.textContent = winningMessage;
+             } else if (computerSelection === 'Scissors') { 
+                 computerPoints += 1;
+                 commentText.textContent = losingMessage;
+             }
+         }
+ 
+         else if (playerSelection === 'Scissors') {
+             if (computerSelection === 'Paper') {
+                 playerPoints += 1;
+                 commentText.textContent = winningMessage;
+             } else if (computerSelection === 'Rock') { 
+                 computerPoints += 1;
+                 commentText.textContent = losingMessage;
+             }
+         }
+     }
+    
 
-    function playRound(playerSelection, computerSelection) {
-        let string = playerSelection.toLowerCase();
-        let capString = string.charAt(0).toUpperCase() + string.slice(1);
-        let winningMessage = `Victory! ${capString} beats ${computerSelection}.`
-        let losingMessage = `You lose! ${computerSelection} beats ${capString}.`
-
-        if (capString === computerSelection) {
-            console.log(`Ahh dang! No winner this round. ${capString} nullifies ${computerSelection}`);
-        }
-
-        else if (capString === 'Rock') {
-            if (computerSelection === 'Scissors') {
-                playerPoints += 1;
-                console.log(winningMessage);
-            } else if (computerSelection === 'Paper') { 
-                computerPoints += 1;
-                console.log(losingMessage);
-            }
-        }
-
-        else if (capString === 'Paper') {
-            if (computerSelection === 'Rock') {
-                playerPoints += 1;
-                console.log(winningMessage);
-            } else if (computerSelection === 'Scissors') { 
-                computerPoints += 1;
-                console.log(losingMessage);
-            }
-        }
-
-        else if (capString === 'Scissors') {
-            if (computerSelection === 'Paper') {
-                playerPoints += 1;
-                console.log(winningMessage);
-            } else if (computerSelection === 'Rock') { 
-                computerPoints += 1;
-                console.log(losingMessage);
-            }
-        }
-    }
+    
 
     function results() {
         if (playerPoints > computerPoints) {
@@ -137,13 +156,4 @@ let playerPoints = 0;
            console.log(`It's a draw. You both got ${playerPoints} each.`)
        }
     }
-
-    function game() {
-       let i;
-       for (i = 0; i < 5; i++) {
-        playRound(prompt('What do you choose?', ''), computerPlay());
-       }
-       results();
-       playerPoints = 0;
-       computerPoints = 0;
-    }
+}
