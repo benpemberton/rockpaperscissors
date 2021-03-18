@@ -198,7 +198,10 @@ p {
 
 .disappear{
     animation: fade-out 0.7s forwards;
-    
+}
+
+.disappear2{
+    display: none;
 }
 
 @keyframes fade-out {
@@ -210,37 +213,40 @@ p {
 #versusbox { 
         height: 50vh;
         display:flex;
-        width: 100%;
+        margin-left: 5vw;
+        margin-right: 5vw;
 }
 
 #stickmanbox {
     display: flex;
-    width: 30%;
     align-items: center;
     justify-content: flex-end;
+    flex-basis:30%;
 }
 
 #stickmanbox img {
-    height: 60%;
+    width: 20%;
+    height:auto;
     padding-right: 10vw;
 }
 
 #scorebox {
     display: flex;
-    width:40%;
     align-items: center;
     justify-content: center;
+    flex-basis: 40%;
 }
 
 #laptopbox {
-    width: 30%;
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    flex-basis: 30%;
 }
 
 #laptopbox img {
-    height: 45%;
+    width: 40%;
+    height: auto;
     padding-left: 10vw;
 }
 
@@ -269,7 +275,15 @@ p {
 }
 
 #commentbox {
-    height: 150px;
+    height: 7vh;
+    padding-bottom: 10vh;
+    display: flex;
+    justify-content: center;
+}
+
+#commentbox p {
+    font-size: 34px;
+
 }
 
 #weaponicons {
@@ -281,12 +295,13 @@ p {
 .weapons {
     border: dotted 4px black;
     padding: 2%;
-    height: 15vh;
-    width:auto;
+    height: auto;
+    width:7vw;
+    flex-shrink: 1;
 }
 
 .weapons img {
-    max-height: 100%;
+    max-width: 100%;
 }
 
 .slidefrombelow {
@@ -300,13 +315,24 @@ p {
     100% {transform: translate(0, 0);}
 }
 
-.weapons:hover {
-    background-color: #C5FB6F;
-    border: solid 4px white;
+.slidetobelow {
+    position: relative;
+    transform: translate(0, 0);
+    animation:slidetobelow 1s forwards;
+    animation-delay: 1s;
 }
 
-.weapons img:hover {
-    transform: scale(1.03);
+@keyframes slidetobelow {
+    99% {transform: translate(0, 40vh);}
+    100% {
+        transform: translate(0, 40vh);
+        display: none;
+    }
+}
+
+.weapons:hover {
+    background-color: black;
+    border: solid 4px white;
 }
 
 .buttons:hover {
@@ -315,7 +341,7 @@ p {
 }
 
 .weapons:active {
-    background-color: #97d337;
+    background-color: rgb(255, 157, 250);
     transform: translate(1px,1px) scale(0.99);
     box-shadow: 0px 0px 0px 2px black;
 }
@@ -331,4 +357,21 @@ p {
 @keyframes grow {
     0% {transform: scale(0);}
     100% {transform: scale(1);}
+}
+
+.fadeforresults {
+    animation: results-fade 3s forwards;
+}
+
+@keyframes results-fade {
+    15% {transform: scale(1.1);}
+    40% {transform: scale(1);}
+    60% {opacity: 1;}
+    80% {opacity: 0;}
+    100% {opacity: 0;}
+}
+
+#weaponbox {
+    display: block;
+    text-align: center;
 }

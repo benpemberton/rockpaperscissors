@@ -28,6 +28,10 @@ window.onload = () => {
     const scissorImg = document.createElement('img');
     scissorImg.setAttribute('id', 'scissorimg');
     scissorImg.src = '/images/scissors.png';
+    const replayButton = document.createElement('button');
+    replayButton.setAttribute('class', 'buttons');
+    replayButton.textContent = 'Replay';
+    replayButton.style.margin = 'auto';
     const weaponPrompt = document.getElementById('weaponprompt');
     const letsPlay = document.querySelector('#btnyes');
 
@@ -66,13 +70,17 @@ window.onload = () => {
 
     const commentText = document.createElement('p');
     commentBox.appendChild(commentText);
-    let score = '0 - 0';
-    pointsText.innerHTML = score;
+    pointsText.innerHTML = '0 - 0';
     scoreBox.appendChild(pointsText);
+    const weaponsDivs = document.querySelectorAll('.weapons');
+
+    weaponsDivs.forEach(function(node) {
+        node.addEventListener('mouseover', weaponsHover);
+        node.addEventListener('mouseout', weaponsOff);
+    });
     
-    document.querySelectorAll('.weapons').forEach(function(node) {
+    weaponsDivs.forEach(function(node) {
         node.addEventListener('click', function(e) {
-            
             if (e.target.id === 'rockimg' || e.target.id === 'rockbox') {
                 playerThisRound = 'Rock';
             } else if (e.target.id === 'paperimg' || e.target.id === 'paperbox') {
@@ -82,12 +90,22 @@ window.onload = () => {
             }
             playRound(playerThisRound, computerPlay());
             pointsText.innerHTML = `${playerPoints} - ${computerPoints}`;
-            roundsPlayed += 1;
             if (roundsPlayed === 5) {
-                alert('that\'s enough');
+                results();
             }
         });
     });
+
+    
+
+
+    function weaponsHover(e) {
+        e.currentTarget.querySelector('img').style.transform = 'scale(1.06)';
+    }
+
+    function weaponsOff(e) {
+        e.currentTarget.querySelector('img').style.transform = 'scale(1)';
+    }
 
     function computerPlay () {
         let result = Math.floor(Math.random() * 3);
@@ -103,57 +121,86 @@ window.onload = () => {
                  break;
          }
      }
- 
-     function playRound(playerSelection, computerSelection) {
-         let winningMessage = `Victory! ${playerSelection} beats ${computerSelection}.`
-         let losingMessage = `You lose! ${computerSelection} beats ${playerSelection}.`
- 
-         if (playerSelection === computerSelection) {
-             commentText.textContent = 
-             `Ahh dang! No winner this round. ${playerSelection} nullifies ${computerSelection}`;
-         }
- 
-         else if (playerSelection === 'Rock') {
-             if (computerSelection === 'Scissors') {
-                 playerPoints += 1;
-                 commentText.textContent = winningMessage;
-             } else if (computerSelection === 'Paper') { 
-                 computerPoints += 1;
-                 commentText.textContent = losingMessage;
-             }
-         }
- 
-         else if (playerSelection === 'Paper') {
-             if (computerSelection === 'Rock') {
-                 playerPoints += 1;
-                 commentText.textContent = winningMessage;
-             } else if (computerSelection === 'Scissors') { 
-                 computerPoints += 1;
-                 commentText.textContent = losingMessage;
-             }
-         }
- 
-         else if (playerSelection === 'Scissors') {
-             if (computerSelection === 'Paper') {
-                 playerPoints += 1;
-                 commentText.textContent = winningMessage;
-             } else if (computerSelection === 'Rock') { 
-                 computerPoints += 1;
-                 commentText.textContent = losingMessage;
-             }
-         }
-     }
-    
 
-    
+    function playRound(playerSelection, computerSelection) {
+        let winningMessage = `Victory! ${playerSelection} beats ${computerSelection}.`
+        let losingMessage = `You lose! ${computerSelection} beats ${playerSelection}.`
+
+        if (playerSelection === computerSelection) {
+            if (playerSelection === 'Scissors') {
+                commentText.textContent = 
+            `Ahh dang! No winner this round. ${playerSelection} nullify ${computerSelection}`;
+            } else {
+            commentText.textContent = 
+            `Ahh dang! No winner this round. ${playerSelection} nullifies ${computerSelection}`;
+            }
+        }
+
+        else if (playerSelection === 'Rock') {
+            if (computerSelection === 'Scissors') {
+                playerPoints += 1;
+                commentText.textContent = winningMessage;
+            } else if (computerSelection === 'Paper') { 
+                computerPoints += 1;
+                commentText.textContent = losingMessage;
+            }
+        }
+
+        else if (playerSelection === 'Paper') {
+            if (computerSelection === 'Rock') {
+                playerPoints += 1;
+                commentText.textContent = winningMessage;
+            } else if (computerSelection === 'Scissors') { 
+                computerPoints += 1;
+                commentText.textContent = losingMessage;
+            }
+        }
+
+        else if (playerSelection === 'Scissors') {
+            if (computerSelection === 'Paper') {
+                playerPoints += 1;
+                commentText.textContent = winningMessage;
+            } else if (computerSelection === 'Rock') { 
+                computerPoints += 1;
+                commentText.textContent = losingMessage;
+            }
+        }
+        roundsPlayed += 1;
+    }  
 
     function results() {
-        if (playerPoints > computerPoints) {
-           console.log(`You've won! You got ${playerPoints} and the computer got ${computerPoints}.`);
-       } else if (computerPoints > playerPoints) {
-           console.log(`Oh deary me. You lose. The computer got ${computerPoints} and you got ${playerPoints}.`);
-       } else if (playerPoints === computerPoints){
-           console.log(`It's a draw. You both got ${playerPoints} each.`)
-       }
+        commentText.classList.toggle('fadeforresults');
+        commentText.addEventListener('animationend', () => {
+            commentText.classList.toggle('fadeforresults');
+            if (playerPoints > computerPoints) {
+                commentText.textContent = 
+                `You've won! You got ${playerPoints} and the computer got ${computerPoints}.`;
+            } else if (computerPoints > playerPoints) {
+                commentText.textContent = 
+                `Oh deary me. You lose. The computer got ${computerPoints} and you got ${playerPoints}.`;
+            } else if (playerPoints === computerPoints){
+                commentText.textContent =  
+                `It's a draw.`;       
+            }
+            weaponsDivs.forEach(function(node) {
+                node.classList.toggle('slidefrombelow');
+                node.classList.toggle('slidetobelow');
+            });
+            weaponsDivs[2].addEventListener('animationend', () => {
+                let weaponIcons = document.getElementById('weaponicons');
+                weaponBox.insertBefore(replayButton, weaponIcons);
+            });
+            replayButton.addEventListener('click', () => {
+                replayButton.classList.toggle('disappear2');
+                weaponsDivs.forEach(function(node) {
+                    node.classList.toggle('slidefrombelow');
+                    node.classList.toggle('slidetobelow');
+                });
+                weaponsDivs[2].addEventListener('animationend', () => {
+                    commentText.textContent = '';
+                    pointsText.innerHTML = '0 - 0';
+                });
+            });
+        });
     }
 }
