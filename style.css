@@ -375,3 +375,7 @@ p {
     display: block;
     text-align: center;
 }
+
+.noplay {
+    padding-top: 40vh;
+}
